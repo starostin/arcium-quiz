@@ -189,10 +189,10 @@
     <div class="container">
         <h1>Arcium Quiz</h1>
         <div class="level-selection" id="level-selection">
-            <h2>Select Difficulty Level</h2>
-            <div class="level-btn" data-level="easy" id="level-btn-easy">Easy (0)</div>
-            <div class="level-btn" data-level="medium" id="level-btn-medium">Medium (0)</div>
-            <div class="level-btn" data-level="difficult" id="level-btn-difficult">Difficult (0)</div>
+            <h2>Select Topic</h2>
+            <div class="level-btn" data-level="general" id="level-btn-general">General Info (0)</div>
+            <div class="level-btn" data-level="splToken" id="level-btn-splToken">Confidential SPL Token (0)</div>
+            <div class="level-btn" data-level="mpcProtocols" id="level-btn-mpcProtocols">Main MPC Protocols (0)</div>
             <div class="high-scores" id="high-scores">
                 <p>Total High Score: <span id="total-high-score">0</span></p>
             </div>
@@ -213,7 +213,7 @@
 
     <script>
         const questions = {
-            easy: [
+            general: [
                 {
                     question: "What is the primary goal of Arcium?",
                     options: [
@@ -225,7 +225,7 @@
                     correct: 1
                 },
                 {
-                    question: "Which state of data is vulnerable without Arcium’s technology?",
+                    question: "Which state of data is vulnerable without Arcium's technology?",
                     options: [
                         "Data at rest",
                         "Data in transit",
@@ -245,14 +245,14 @@
                     correct: 1
                 },
                 {
-                    question: "What is a key limitation of Web3 that Arcium addresses?",
-                    options: [
-                        "Scalability",
-                        "Transparency",
-                        "Speed",
-                        "Cost"
+                    "question": "What is the purpose of Arcium's mint-and-burn mechanism for the ARX token?",
+                    "options": [
+                        "To increase token supply indefinitely",
+                        "To balance computational supply and demand",
+                        "To eliminate staking requirements",
+                        "To fund external marketing campaigns"
                     ],
-                    correct: 1
+                    "correct": 1
                 },
                 {
                     question: "What does Arcium ensure for user data?",
@@ -265,7 +265,7 @@
                     correct: 0
                 },
                 {
-                    question: "Which industries can benefit from Arcium’s technology?",
+                    question: "Which industries can benefit from Arcium's technology?",
                     options: [
                         "AI, DeFi, and DePIN",
                         "Gaming only",
@@ -295,168 +295,179 @@
                     correct: 1
                 }
             ],
-            medium: [
+            splToken: [
                 {
-                    question: "What cryptographic technique is central to Arcium’s functionality?",
+                    question: "What is the Confidential SPL Token Standard?",
                     options: [
-                        "Symmetric Encryption",
-                        "Multi-Party Computation (MPC)",
-                        "Hashing",
-                        "Public Key Infrastructure"
+                        "A new blockchain protocol",
+                        "A unified token standard for confidential tokens, transfers, and trading on Solana",
+                        "A cryptocurrency exchange",
+                        "A wallet application"
                     ],
                     correct: 1
                 },
                 {
-                    question: "What are MXEs in the Arcium Network?",
+                    question: "What does the Confidential SPL Token Standard merge?",
                     options: [
-                        "Multi-Execution Engines",
-                        "Multiparty computation eXecution Environments",
-                        "Memory Extension Units",
-                        "Modular X-ray Engines"
+                        "Bitcoin and Ethereum",
+                        "SPL Token, Token-2022, Confidential Transfer Extension, and Arcium's encrypted MPC",
+                        "Traditional banking and DeFi",
+                        "AI and blockchain"
                     ],
                     correct: 1
                 },
                 {
-                    question: "What is arxOS?",
+                    question: "What is the primary limitation of Token-2022's Confidential Transfer model?",
                     options: [
-                        "A blockchain protocol",
-                        "A distributed operating system for Arcium nodes",
-                        "A programming language",
-                        "A cloud storage solution"
+                        "High transaction costs",
+                        "Only allows EOAs to control confidential token accounts",
+                        "Slow processing speed",
+                        "Limited token support"
                     ],
                     correct: 1
                 },
                 {
-                    question: "What does Arcium’s trustless framework eliminate the need for?",
+                    question: "What does the Confidential SPL Token Standard solve for DeFi?",
                     options: [
-                        "Data storage",
-                        "Trusted parties",
-                        "Internet connectivity",
-                        "User interfaces"
+                        "Token scarcity issues",
+                        "The inability of smart contracts to interact with confidential balances",
+                        "High gas fees",
+                        "Slow transaction times"
+                    ],
+                    correct: 1
+                },
+               {
+        "question": "Which feature of the Confidential SPL Token allows any SPL token to be used confidentially?",
+        "options": [
+            "Canonical confidential wrapped mints",
+            "Public token wrapping",
+            "Manual mint creation by users",
+            "Centralized token conversion"
+        ],
+        "correct": 0
+    },
+                {
+                    question: "What problem does Confidential SPL Token solve with token account creation?",
+                    options: [
+                        "High creation costs",
+                        "Recipients must pre-create confidential token accounts",
+                        "Slow creation process",
+                        "Limited account types"
                     ],
                     correct: 1
                 },
                 {
-                    question: "What previous project did Arcium evolve from?",
+                    question: "What are Canonical Confidential Mints?",
                     options: [
-                        "Ethereum",
-                        "Elusiv",
-                        "Bitcoin",
-                        "Cardano"
+                        "New blockchain tokens",
+                        "Confidential wrapped mints that allow any SPL token to be wrapped into a unified, confidential variant",
+                        "Government-issued tokens",
+                        "Private keys"
                     ],
                     correct: 1
                 },
                 {
-                    question: "How does Arcium ensure data privacy during computation?",
+                    question: "What is the Confidential Transfer Adapter?",
                     options: [
-                        "By decrypting data temporarily",
-                        "By keeping data encrypted during computation",
-                        "By storing data in plaintext",
-                        "By using public ledgers"
-                    ],
-                    correct: 1
-                },
-                {
-                    question: "What is a key feature of Arcium’s MXEs?",
-                    options: [
-                        "They are non-customizable",
-                        "They allow customization of MPC protocols",
-                        "They rely on centralized servers",
-                        "They only support Web2 applications"
-                    ],
-                    correct: 1
-                },
-                {
-                    question: "What blockchain does Arcium primarily integrate with?",
-                    options: [
-                        "Ethereum",
-                        "Solana",
-                        "Binance Smart Chain",
-                        "Polkadot"
+                        "A hardware device",
+                        "A program that brings non-EOA support to Token-2022 Confidential Transfer Extension using Arcium",
+                        "A wallet application",
+                        "A blockchain protocol"
                     ],
                     correct: 1
                 }
             ],
-            difficult: [
+            mpcProtocols: [
                 {
-                    question: "Which statements describe Arcium's core value proposition?",
+                    question: "What are Arcium's two main MPC protocols?",
                     options: [
-                        "Encrypted computation at scale",
-                        "Trustless and verifiable execution",
-                        "Requires a centralized trusted party",
-                        "Low-cost infrastructure for developers"
-                    ],
-                    correct: [0, 1, 3]
-                },
-                {
-                    question: "What is Arcis in the context of Arcium?",
-                    options: [
-                        "A Rust-based Domain Specific Language",
-                        "A hardware component",
-                        "A consensus algorithm",
-                        "A wallet application"
-                    ],
-                    correct: 0
-                },
-                {
-                    question: "Which are key benefits highlighted by Arcium?",
-                    options: [
-                        "Full and trustless privacy",
-                        "More powerful apps over encrypted data",
-                        "Easy integrations",
-                        "Mandatory cloud vendor lock-in"
-                    ],
-                    correct: [0, 1, 2]
-                },
-                {
-                    question: "Arcium enables privacy by relying primarily on which technique?",
-                    options: [
-                        "Multi-Party Computation (MPC)",
-                        "Temporary decryption during compute",
-                        "Hash functions only",
-                        "Hardware-only TEEs"
-                    ],
-                    correct: 0
-                },
-                {
-                    question: "Which components are part of Arcium's architecture?",
-                    options: [
-                        "Multi-Party eXecution Environments (MXEs)",
-                        "Clusters",
-                        "Arx nodes",
-                        "Centralized coordinators only"
-                    ],
-                    correct: [0, 1, 2]
-                },
-                {
-                    question: "Which industries can benefit from Arcium?",
-                    options: [
-                        "AI",
-                        "DeFi",
-                        "DePIN",
-                        "Retail only"
-                    ],
-                    correct: [0, 1, 2]
-                },
-                {
-                    question: "What advantage does Arcium's parallelized computing provide?",
-                    options: [
-                        "Higher latency",
-                        "Adoption-ready throughput",
-                        "Increased centralization",
-                        "Reduced security"
+                        "Bitcoin and Ethereum",
+                        "Cerberus and Manticore",
+                        "Public and Private",
+                        "Fast and Slow"
                     ],
                     correct: 1
                 },
                 {
-                    question: "Which properties align with Arcium's design goals?",
+                    question: "What is Multi-Party Computation (MPC)?",
                     options: [
-                        "Censorship resistance & fault handling",
-                        "Trustless access",
-                        "Compute over fully encrypted data",
-                        "Single-server execution"
+                        "A type of blockchain",
+                        "An advanced encryption technique that enables multiple parties to collaborate on computing tasks while maintaining data privacy",
+                        "A cryptocurrency",
+                        "A database system"
                     ],
-                    correct: [0, 1, 2]
+                    correct: 1
+                },
+
+                {
+                    question: "What type of arithmetic does Cerberus support?",
+                    options: [
+                        "Only integer arithmetic",
+                        "Floating-point arithmetic with high precision",
+                        "Only boolean operations",
+                        "Only string operations"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Which protocol is better for real-time applications?",
+                    options: [
+                        "Cerberus",
+                        "Manticore",
+                        "Both equally",
+                        "Neither"
+                    ],
+                    correct: 1
+                },
+                {
+        "question": "What is the primary security model under which Cerberus operates?",
+        "options": [
+            "Honest majority",
+            "Dishonest majority",
+            "Trusted dealer",
+            "Fully homomorphic"
+        ],
+        "correct": 1
+    },
+    {
+        "question": "Which feature of Cerberus ensures that data integrity is maintained during computations?",
+        "options": [
+            "Trusted dealer system",
+            "Message Authentication Code (MAC)",
+            "Honest-but-curious assumption",
+            "Public key encryption"
+        ],
+        "correct": 1
+    },
+    {
+        "question": "What is a key trade-off of Manticore compared to Cerberus?",
+        "options": [
+            "Higher security with slower speed",
+            "Faster speed with lower security",
+            "No encryption for better performance",
+            "Centralized control for efficiency"
+        ],
+        "correct": 1
+    },
+    {
+        "question": "In what type of environment is Manticore typically used?",
+        "options": [
+            "Permissionless settings",
+            "Public blockchain networks",
+            "Permissioned settings with trusted operators",
+            "Non-encrypted data environments"
+        ],
+        "correct": 2
+    },
+                {
+                    question: "Which protocol provides higher security guarantees?",
+                    options: [
+                        "Manticore",
+                        "Cerberus",
+                        "Both equally",
+                        "Neither"
+                    ],
+                    correct: 1
                 }
             ]
         };
@@ -466,10 +477,8 @@
         let score = 0;
         let timeLeft = 30;
         let timerInterval;
-        let multiPending = false; // whether current question expects multi-select submission
-        let multiAnswered = false; // whether multi-select question has been evaluated
         // Track user answers to score at the end
-        let userAnswers = []; // array of { selected: number | number[], isMulti: boolean }
+        let userAnswers = []; // array of { selected: number }
         const levelSelection = document.getElementById('level-selection');
         const quizContent = document.getElementById('quiz-content');
         const questionElement = document.getElementById('question');
@@ -482,29 +491,29 @@
         const resultElement = document.getElementById('result');
         const restartBtn = document.getElementById('restart-btn');
         const achievementElement = document.getElementById('achievement');
-        const levelBtnEasy = document.getElementById('level-btn-easy');
-        const levelBtnMedium = document.getElementById('level-btn-medium');
-        const levelBtnDifficult = document.getElementById('level-btn-difficult');
+        const levelBtnGeneral = document.getElementById('level-btn-general');
+        const levelBtnSplToken = document.getElementById('level-btn-splToken');
+        const levelBtnMpcProtocols = document.getElementById('level-btn-mpcProtocols');
         const totalHighScoreElement = document.getElementById('total-high-score');
         const achievements = {
-            easy: "Arcium Novice: You've mastered the basics!",
-            medium: "Arcium Expert: You're diving deeper!",
-            difficult: "Arcium Master: You're a confidential computing guru!"
+            general: "Arcium Novice: You've mastered the basics!",
+            splToken: "SPL Token Expert: You understand confidential tokens!",
+            mpcProtocols: "MPC Master: You know Cerberus and Manticore!"
         };
         const maxScores = {
-            easy: 120, // 8 questions * (10 points + 5 bonus)
-            medium: 160, // 8 questions * (15 points + 5 bonus)
-            difficult: 200 // 8 questions * (20 points + 5 bonus)
+            general: 80, // 8 questions * 10 points
+            splToken: 80, // 8 questions * 10 points
+            mpcProtocols: 80 // 8 questions * 10 points
         };
 
         function updateHighScores() {
-            const highScoreEasy = parseInt(localStorage.getItem('highScoreEasy')) || 0;
-            const highScoreMedium = parseInt(localStorage.getItem('highScoreMedium')) || 0;
-            const highScoreDifficult = parseInt(localStorage.getItem('highScoreDifficult')) || 0;
-            levelBtnEasy.textContent = `Easy (${highScoreEasy})`;
-            levelBtnMedium.textContent = `Medium (${highScoreMedium})`;
-            levelBtnDifficult.textContent = `Difficult (${highScoreDifficult})`;
-            totalHighScoreElement.textContent = highScoreEasy + highScoreMedium + highScoreDifficult;
+            const highScoreGeneral = parseInt(localStorage.getItem('highScoreGeneral')) || 0;
+            const highScoreSplToken = parseInt(localStorage.getItem('highScoreSplToken')) || 0;
+            const highScoreMpcProtocols = parseInt(localStorage.getItem('highScoreMpcProtocols')) || 0;
+            levelBtnGeneral.textContent = `General Info (${highScoreGeneral})`;
+            levelBtnSplToken.textContent = `Confidential SPL Token (${highScoreSplToken})`;
+            levelBtnMpcProtocols.textContent = `Main MPC Protocols (${highScoreMpcProtocols})`;
+            totalHighScoreElement.textContent = highScoreGeneral + highScoreSplToken + highScoreMpcProtocols;
         }
 
         function saveScore() {
@@ -531,15 +540,17 @@
         }
 
         function handleTimeout() {
-            const q = questions[currentLevel][currentQuestion];
             const options = optionsElement.children;
+            const q = questions[currentLevel][currentQuestion];
             // Disable all options and prevent any further selection
             for (let i = 0; i < options.length; i++) {
                 options[i].classList.add('disabled');
                 options[i].style.pointerEvents = 'none';
             }
             // Record unanswered
-            userAnswers[currentQuestion] = { selected: [], isMulti: Array.isArray(q.correct) };
+            userAnswers[currentQuestion] = { selected: -1 };
+            // Highlight the correct answer
+            options[q.correct].classList.add('correct');
             nextBtn.style.display = 'block';
             if (currentQuestion === questions[currentLevel].length - 1) {
                 finalizeResults();
@@ -549,7 +560,13 @@
         function loadQuestion() {
             const q = questions[currentLevel][currentQuestion];
             questionElement.textContent = q.question;
-            levelElement.textContent = `Level: ${currentLevel.charAt(0).toUpperCase() + currentLevel.slice(1)}`;
+            const levelNames = {
+                general: 'General Info',
+                splToken: 'Confidential SPL Token',
+                mpcProtocols: 'Main MPC Protocols'
+            };
+            levelElement.textContent = `Topic: ${levelNames[currentLevel]}`;
+            console.log('Current level:', currentLevel, 'Question count:', questions[currentLevel].length);
             progressElement.textContent = `Question: ${currentQuestion + 1}/${questions[currentLevel].length}`;
             optionsElement.innerHTML = '';
             q.options.forEach((option, index) => {
@@ -558,12 +575,13 @@
                 btn.textContent = option;
                 btn.addEventListener('click', () => {
                     if (btn.classList.contains('disabled')) return;
-                    btn.classList.toggle('selected');
+                    // Remove selected class from all options
+                    document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                    // Add selected class to clicked option
+                    btn.classList.add('selected');
                 });
                 optionsElement.appendChild(btn);
             });
-            multiPending = false;
-            multiAnswered = false;
             nextBtn.textContent = 'Next Question';
             nextBtn.style.display = 'block';
             achievementElement.style.display = 'none';
@@ -575,72 +593,48 @@
         function storeSelections() {
             clearInterval(timerInterval);
             const options = optionsElement.children;
-            const selectedIndices = [];
+            let selectedIndex = -1;
             for (let i = 0; i < options.length; i++) {
-                if (options[i].classList.contains('selected')) selectedIndices.push(i);
+                if (options[i].classList.contains('selected')) {
+                    selectedIndex = i;
+                    break;
+                }
                 options[i].classList.add('disabled');
                 options[i].style.pointerEvents = 'none';
             }
+            userAnswers[currentQuestion] = { selected: selectedIndex };
+            
+            // Check if answer is correct and update score immediately
             const q = questions[currentLevel][currentQuestion];
-            userAnswers[currentQuestion] = { selected: selectedIndices, isMulti: Array.isArray(q.correct) };
+            if (selectedIndex === q.correct) {
+                score += 10; // All topics now give 10 points per correct answer
+                scoreElement.textContent = score;
+            }
+            
+            // Highlight the correct answer
+            options[q.correct].classList.add('correct');
         }
 
-        function evaluateMultiAnswer() {
-            clearInterval(timerInterval);
-            const q = questions[currentLevel][currentQuestion];
-            const options = optionsElement.children;
-            const selectedIndices = [];
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].classList.contains('selected')) selectedIndices.push(i);
-            }
-            // Store user's multi-selection; do not reveal correctness
-            userAnswers[currentQuestion] = { selected: selectedIndices, isMulti: true };
-            // Disable options
-            for (let i = 0; i < options.length; i++) {
-                options[i].classList.add('disabled');
-                options[i].style.pointerEvents = 'none';
-            }
-            // Switch button to Next
-            nextBtn.textContent = 'Next Question';
-            multiPending = false;
-            multiAnswered = true;
-            if (currentQuestion === questions[currentLevel].length - 1) {
-                finalizeResults();
-            }
-        }
 
         function finalizeResults() {
-            // Compute final score and counts without revealing per-question correctness
+            // Count correct and incorrect answers for display
             let correctCount = 0;
             let incorrectCount = 0;
             let total = questions[currentLevel].length;
-            let computedScore = 0;
             for (let i = 0; i < total; i++) {
                 const q = questions[currentLevel][i];
                 const ans = userAnswers[i];
-                if (!ans) { incorrectCount++; continue; }
-                if (Array.isArray(q.correct)) {
-                    const set = new Set(q.correct);
-                    const sel = Array.isArray(ans.selected) ? ans.selected : (ans.selected >= 0 ? [ans.selected] : []);
-                    const isExact = sel.length === q.correct.length && sel.every(idx => set.has(idx));
-                    if (isExact) {
-                        correctCount++;
-                        computedScore += currentLevel === 'easy' ? 10 : currentLevel === 'medium' ? 15 : 20;
-                    } else {
-                        incorrectCount++;
-                    }
+                if (!ans || ans.selected === -1) { 
+                    incorrectCount++; 
+                    continue; 
+                }
+                if (ans.selected === q.correct) {
+                    correctCount++;
                 } else {
-                    const sel = Array.isArray(ans.selected) ? ans.selected : (ans.selected >= 0 ? [ans.selected] : []);
-                    if (sel.length === 1 && sel[0] === q.correct) {
-                        correctCount++;
-                        computedScore += currentLevel === 'easy' ? 10 : currentLevel === 'medium' ? 15 : 20;
-                    } else {
-                        incorrectCount++;
-                    }
+                    incorrectCount++;
                 }
             }
-            score = computedScore;
-            scoreElement.textContent = score;
+            // Score is already calculated and displayed during the quiz
             // Show achievement and result
             achievementElement.textContent = achievements[currentLevel];
             achievementElement.style.display = 'block';
@@ -651,7 +645,13 @@
             optionsElement.style.display = 'none';
             timerElement.style.display = 'none';
             levelElement.style.display = 'none';
-            resultElement.innerHTML = `Quiz Completed! Your Final Score: ${score}/${maxScores[currentLevel]}<br/>Correct: ${correctCount} | Incorrect: ${incorrectCount}`;
+            progressElement.style.display = 'none';
+            const levelNames = {
+                general: 'General Info',
+                splToken: 'Confidential SPL Token',
+                mpcProtocols: 'Main MPC Protocols'
+            };
+            resultElement.innerHTML = `Quiz Completed! Your Final Score: ${score}/${maxScores[currentLevel]}<br/>Topic: ${levelNames[currentLevel]}<br/>Correct: ${correctCount} | Incorrect: ${incorrectCount}`;
             resultElement.style.display = 'block';
             restartBtn.style.display = 'block';
         }
