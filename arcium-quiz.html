@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcium Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0A0A0A; /* Arcium dark background */
+            background-image: url('https://cdn.prod.website-files.com/67086aa28c40f80ff00c0a83/67086aa28c40f80ff00c0ad3_WIA%20Hero%20Dots.svg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #E6E6E6; /* Light text for contrast */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(26, 26, 26, 0.9); /* Semi-transparent dark card */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            color: #6c44fc; /* Arcium purple accent */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: slideIn 0.8s ease-out;
+        }
+        .level-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .level-btn {
+            background: #2A2A2A;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #E6E6E6;
+            transition: transform 0.3s, background 0.3s;
+            margin: 10px; /* Margin for spacing */
+        }
+        .level-btn:hover {
+            transform: scale(1.05);
+            background: #6c44fc;
+        }
+        .high-scores {
+            font-size: 1.1em;
+            color: #E6E6E6;
+            margin-top: 20px;
+        }
+        .high-scores p {
+            margin: 5px 0;
+        }
+        .level {
+            font-size: 1.3em;
+            color: #6c44fc;
+            margin-bottom: 10px;
+        }
+        .question {
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #E6E6E6;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            background: #2A2A2A; /* Option button background */
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: transform 0.3s, background 0.3s;
+            color: #E6E6E6;
+        }
+        .option:hover {
+            transform: scale(1.05);
+            background: #6c44fc; /* Hover purple */
+        }
+        .option.correct {
+            background: #00FF85; /* Green for correct */
+            animation: pulse 0.5s;
+        }
+        .option.incorrect {
+            background: #FF4D4D; /* Red for incorrect */
+            animation: shake 0.3s;
+        }
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .option.selected {
+            outline: 2px solid #6c44fc;
+            background: #3a2f66;
+        }
+        .option.correct-multi {
+            outline: 2px solid #6c44fc;
+            background: #3a2f66;
+        }
+        .score {
+            font-size: 1.3em;
+            margin: 20px 0;
+            color: #6c44fc;
+        }
+        .timer {
+            font-size: 1.2em;
+            color: #E6E6E6;
+            margin-bottom: 10px;
+        }
+        .progress {
+            font-size: 1.1em;
+            color: #E6E6E6;
+            margin-bottom: 10px;
+        }
+        .next-btn, .restart-btn {
+            background: #6c44fc;
+            color: #E6E6E6;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: transform 0.3s, background 0.3s;
+            margin: 10px;
+        }
+        .next-btn:hover, .restart-btn:hover {
+            transform: scale(1.1);
+            background: #4a2db5; /* Darker purple on hover */
+        }
+        .result {
+            font-size: 1.8em;
+            margin: 20px 0;
+            animation: bounceIn 0.8s;
+        }
+        .achievement {
+            font-size: 1.4em;
+            color: #00FF85;
+            margin: 10px 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Arcium Quiz</h1>
+        <div class="level-selection" id="level-selection">
+            <h2>Select Difficulty Level</h2>
+            <div class="level-btn" data-level="easy" id="level-btn-easy">Easy (0)</div>
+            <div class="level-btn" data-level="medium" id="level-btn-medium">Medium (0)</div>
+            <div class="level-btn" data-level="difficult" id="level-btn-difficult">Difficult (0)</div>
+            <div class="high-scores" id="high-scores">
+                <p>Total High Score: <span id="total-high-score">0</span></p>
+            </div>
+        </div>
+        <div class="quiz-content" id="quiz-content" style="display: none;">
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="level" id="level"></div>
+            <div class="timer" id="timer">Time: 30s</div>
+            <div class="progress" id="progress">Question: 1/1</div>
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <div class="achievement" id="achievement" style="display: none;"></div>
+            <button class="next-btn" id="next-btn" style="display: none;">Next Question</button>
+            <div class="result" id="result" style="display: none;"></div>
+            <button class="restart-btn" id="restart-btn" style="display: none;">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            easy: [
+                {
+                    question: "What is the primary goal of Arcium?",
+                    options: [
+                        "To create a new blockchain",
+                        "To become the foundational infrastructure for computation",
+                        "To develop a centralized cloud service",
+                        "To focus solely on AI applications"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Which state of data is vulnerable without Arcium’s technology?",
+                    options: [
+                        "Data at rest",
+                        "Data in transit",
+                        "Data in use",
+                        "All of the above"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "What type of computing does Arcium enable?",
+                    options: [
+                        "Quantum computing",
+                        "Confidential computing",
+                        "Edge computing",
+                        "Distributed ledger computing"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What is a key limitation of Web3 that Arcium addresses?",
+                    options: [
+                        "Scalability",
+                        "Transparency",
+                        "Speed",
+                        "Cost"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What does Arcium ensure for user data?",
+                    options: [
+                        "Full and trustless privacy",
+                        "Public access",
+                        "Temporary encryption",
+                        "Centralized storage"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Which industries can benefit from Arcium’s technology?",
+                    options: [
+                        "AI, DeFi, and DePIN",
+                        "Gaming only",
+                        "Retail only",
+                        "Telecommunications only"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "What is the role of Arx nodes in the Arcium Network?",
+                    options: [
+                        "They store unencrypted data",
+                        "They process encrypted data",
+                        "They act as payment gateways",
+                        "They manage user authentication"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What is a major benefit of Arcium for developers?",
+                    options: [
+                        "Increased transaction fees",
+                        "Seamless integration of encrypted computing",
+                        "Higher hardware costs",
+                        "Complex programming requirements"
+                    ],
+                    correct: 1
+                }
+            ],
+            medium: [
+                {
+                    question: "What cryptographic technique is central to Arcium’s functionality?",
+                    options: [
+                        "Symmetric Encryption",
+                        "Multi-Party Computation (MPC)",
+                        "Hashing",
+                        "Public Key Infrastructure"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What are MXEs in the Arcium Network?",
+                    options: [
+                        "Multi-Execution Engines",
+                        "Multiparty computation eXecution Environments",
+                        "Memory Extension Units",
+                        "Modular X-ray Engines"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What is arxOS?",
+                    options: [
+                        "A blockchain protocol",
+                        "A distributed operating system for Arcium nodes",
+                        "A programming language",
+                        "A cloud storage solution"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What does Arcium’s trustless framework eliminate the need for?",
+                    options: [
+                        "Data storage",
+                        "Trusted parties",
+                        "Internet connectivity",
+                        "User interfaces"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What previous project did Arcium evolve from?",
+                    options: [
+                        "Ethereum",
+                        "Elusiv",
+                        "Bitcoin",
+                        "Cardano"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "How does Arcium ensure data privacy during computation?",
+                    options: [
+                        "By decrypting data temporarily",
+                        "By keeping data encrypted during computation",
+                        "By storing data in plaintext",
+                        "By using public ledgers"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What is a key feature of Arcium’s MXEs?",
+                    options: [
+                        "They are non-customizable",
+                        "They allow customization of MPC protocols",
+                        "They rely on centralized servers",
+                        "They only support Web2 applications"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What blockchain does Arcium primarily integrate with?",
+                    options: [
+                        "Ethereum",
+                        "Solana",
+                        "Binance Smart Chain",
+                        "Polkadot"
+                    ],
+                    correct: 1
+                }
+            ],
+            difficult: [
+                {
+                    question: "Which statements describe Arcium's core value proposition?",
+                    options: [
+                        "Encrypted computation at scale",
+                        "Trustless and verifiable execution",
+                        "Requires a centralized trusted party",
+                        "Low-cost infrastructure for developers"
+                    ],
+                    correct: [0, 1, 3]
+                },
+                {
+                    question: "What is Arcis in the context of Arcium?",
+                    options: [
+                        "A Rust-based Domain Specific Language",
+                        "A hardware component",
+                        "A consensus algorithm",
+                        "A wallet application"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Which are key benefits highlighted by Arcium?",
+                    options: [
+                        "Full and trustless privacy",
+                        "More powerful apps over encrypted data",
+                        "Easy integrations",
+                        "Mandatory cloud vendor lock-in"
+                    ],
+                    correct: [0, 1, 2]
+                },
+                {
+                    question: "Arcium enables privacy by relying primarily on which technique?",
+                    options: [
+                        "Multi-Party Computation (MPC)",
+                        "Temporary decryption during compute",
+                        "Hash functions only",
+                        "Hardware-only TEEs"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Which components are part of Arcium's architecture?",
+                    options: [
+                        "Multi-Party eXecution Environments (MXEs)",
+                        "Clusters",
+                        "Arx nodes",
+                        "Centralized coordinators only"
+                    ],
+                    correct: [0, 1, 2]
+                },
+                {
+                    question: "Which industries can benefit from Arcium?",
+                    options: [
+                        "AI",
+                        "DeFi",
+                        "DePIN",
+                        "Retail only"
+                    ],
+                    correct: [0, 1, 2]
+                },
+                {
+                    question: "What advantage does Arcium's parallelized computing provide?",
+                    options: [
+                        "Higher latency",
+                        "Adoption-ready throughput",
+                        "Increased centralization",
+                        "Reduced security"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Which properties align with Arcium's design goals?",
+                    options: [
+                        "Censorship resistance & fault handling",
+                        "Trustless access",
+                        "Compute over fully encrypted data",
+                        "Single-server execution"
+                    ],
+                    correct: [0, 1, 2]
+                }
+            ]
+        };
+
+        let currentQuestion = 0;
+        let currentLevel = null;
+        let score = 0;
+        let timeLeft = 30;
+        let timerInterval;
+        let multiPending = false; // whether current question expects multi-select submission
+        let multiAnswered = false; // whether multi-select question has been evaluated
+        // Track user answers to score at the end
+        let userAnswers = []; // array of { selected: number | number[], isMulti: boolean }
+        const levelSelection = document.getElementById('level-selection');
+        const quizContent = document.getElementById('quiz-content');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const scoreElement = document.getElementById('score');
+        const levelElement = document.getElementById('level');
+        const timerElement = document.getElementById('timer');
+        const progressElement = document.getElementById('progress');
+        const nextBtn = document.getElementById('next-btn');
+        const resultElement = document.getElementById('result');
+        const restartBtn = document.getElementById('restart-btn');
+        const achievementElement = document.getElementById('achievement');
+        const levelBtnEasy = document.getElementById('level-btn-easy');
+        const levelBtnMedium = document.getElementById('level-btn-medium');
+        const levelBtnDifficult = document.getElementById('level-btn-difficult');
+        const totalHighScoreElement = document.getElementById('total-high-score');
+        const achievements = {
+            easy: "Arcium Novice: You've mastered the basics!",
+            medium: "Arcium Expert: You're diving deeper!",
+            difficult: "Arcium Master: You're a confidential computing guru!"
+        };
+        const maxScores = {
+            easy: 120, // 8 questions * (10 points + 5 bonus)
+            medium: 160, // 8 questions * (15 points + 5 bonus)
+            difficult: 200 // 8 questions * (20 points + 5 bonus)
+        };
+
+        function updateHighScores() {
+            const highScoreEasy = parseInt(localStorage.getItem('highScoreEasy')) || 0;
+            const highScoreMedium = parseInt(localStorage.getItem('highScoreMedium')) || 0;
+            const highScoreDifficult = parseInt(localStorage.getItem('highScoreDifficult')) || 0;
+            levelBtnEasy.textContent = `Easy (${highScoreEasy})`;
+            levelBtnMedium.textContent = `Medium (${highScoreMedium})`;
+            levelBtnDifficult.textContent = `Difficult (${highScoreDifficult})`;
+            totalHighScoreElement.textContent = highScoreEasy + highScoreMedium + highScoreDifficult;
+        }
+
+        function saveScore() {
+            const highScoreKey = `highScore${currentLevel.charAt(0).toUpperCase() + currentLevel.slice(1)}`;
+            const currentHighScore = parseInt(localStorage.getItem(highScoreKey)) || 0;
+            if (score > currentHighScore) {
+                localStorage.setItem(highScoreKey, score);
+                updateHighScores();
+            }
+        }
+
+        function startTimer() {
+            timeLeft = 30;
+            timerElement.textContent = `Time: ${timeLeft}s`;
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `Time: ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout(); // Time out: disable options and record no answer
+                }
+            }, 1000);
+        }
+
+        function handleTimeout() {
+            const q = questions[currentLevel][currentQuestion];
+            const options = optionsElement.children;
+            // Disable all options and prevent any further selection
+            for (let i = 0; i < options.length; i++) {
+                options[i].classList.add('disabled');
+                options[i].style.pointerEvents = 'none';
+            }
+            // Record unanswered
+            userAnswers[currentQuestion] = { selected: [], isMulti: Array.isArray(q.correct) };
+            nextBtn.style.display = 'block';
+            if (currentQuestion === questions[currentLevel].length - 1) {
+                finalizeResults();
+            }
+        }
+
+        function loadQuestion() {
+            const q = questions[currentLevel][currentQuestion];
+            questionElement.textContent = q.question;
+            levelElement.textContent = `Level: ${currentLevel.charAt(0).toUpperCase() + currentLevel.slice(1)}`;
+            progressElement.textContent = `Question: ${currentQuestion + 1}/${questions[currentLevel].length}`;
+            optionsElement.innerHTML = '';
+            q.options.forEach((option, index) => {
+                const btn = document.createElement('div');
+                btn.classList.add('option');
+                btn.textContent = option;
+                btn.addEventListener('click', () => {
+                    if (btn.classList.contains('disabled')) return;
+                    btn.classList.toggle('selected');
+                });
+                optionsElement.appendChild(btn);
+            });
+            multiPending = false;
+            multiAnswered = false;
+            nextBtn.textContent = 'Next Question';
+            nextBtn.style.display = 'block';
+            achievementElement.style.display = 'none';
+            startTimer();
+        }
+
+        // No per-click answering; selection is stored on Next
+
+        function storeSelections() {
+            clearInterval(timerInterval);
+            const options = optionsElement.children;
+            const selectedIndices = [];
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].classList.contains('selected')) selectedIndices.push(i);
+                options[i].classList.add('disabled');
+                options[i].style.pointerEvents = 'none';
+            }
+            const q = questions[currentLevel][currentQuestion];
+            userAnswers[currentQuestion] = { selected: selectedIndices, isMulti: Array.isArray(q.correct) };
+        }
+
+        function evaluateMultiAnswer() {
+            clearInterval(timerInterval);
+            const q = questions[currentLevel][currentQuestion];
+            const options = optionsElement.children;
+            const selectedIndices = [];
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].classList.contains('selected')) selectedIndices.push(i);
+            }
+            // Store user's multi-selection; do not reveal correctness
+            userAnswers[currentQuestion] = { selected: selectedIndices, isMulti: true };
+            // Disable options
+            for (let i = 0; i < options.length; i++) {
+                options[i].classList.add('disabled');
+                options[i].style.pointerEvents = 'none';
+            }
+            // Switch button to Next
+            nextBtn.textContent = 'Next Question';
+            multiPending = false;
+            multiAnswered = true;
+            if (currentQuestion === questions[currentLevel].length - 1) {
+                finalizeResults();
+            }
+        }
+
+        function finalizeResults() {
+            // Compute final score and counts without revealing per-question correctness
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let total = questions[currentLevel].length;
+            let computedScore = 0;
+            for (let i = 0; i < total; i++) {
+                const q = questions[currentLevel][i];
+                const ans = userAnswers[i];
+                if (!ans) { incorrectCount++; continue; }
+                if (Array.isArray(q.correct)) {
+                    const set = new Set(q.correct);
+                    const sel = Array.isArray(ans.selected) ? ans.selected : (ans.selected >= 0 ? [ans.selected] : []);
+                    const isExact = sel.length === q.correct.length && sel.every(idx => set.has(idx));
+                    if (isExact) {
+                        correctCount++;
+                        computedScore += currentLevel === 'easy' ? 10 : currentLevel === 'medium' ? 15 : 20;
+                    } else {
+                        incorrectCount++;
+                    }
+                } else {
+                    const sel = Array.isArray(ans.selected) ? ans.selected : (ans.selected >= 0 ? [ans.selected] : []);
+                    if (sel.length === 1 && sel[0] === q.correct) {
+                        correctCount++;
+                        computedScore += currentLevel === 'easy' ? 10 : currentLevel === 'medium' ? 15 : 20;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            }
+            score = computedScore;
+            scoreElement.textContent = score;
+            // Show achievement and result
+            achievementElement.textContent = achievements[currentLevel];
+            achievementElement.style.display = 'block';
+            nextBtn.style.display = 'none';
+            saveScore();
+            // Extend result summary with correct/incorrect counts
+            questionElement.style.display = 'none';
+            optionsElement.style.display = 'none';
+            timerElement.style.display = 'none';
+            levelElement.style.display = 'none';
+            resultElement.innerHTML = `Quiz Completed! Your Final Score: ${score}/${maxScores[currentLevel]}<br/>Correct: ${correctCount} | Incorrect: ${incorrectCount}`;
+            resultElement.style.display = 'block';
+            restartBtn.style.display = 'block';
+        }
+
+        function startQuiz(level) {
+            currentLevel = level;
+            currentQuestion = 0;
+            score = 0;
+            scoreElement.textContent = score;
+            userAnswers = [];
+            levelSelection.style.display = 'none';
+            quizContent.style.display = 'block';
+            loadQuestion();
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const q = questions[currentLevel][currentQuestion];
+            storeSelections();
+            currentQuestion++;
+            if (currentQuestion < questions[currentLevel].length) {
+                loadQuestion();
+            } else {
+                finalizeResults();
+            }
+        });
+
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                startQuiz(btn.getAttribute('data-level'));
+            });
+        });
+
+        restartBtn.addEventListener('click', () => {
+            currentQuestion = 0;
+            currentLevel = null;
+            score = 0;
+            scoreElement.textContent = score;
+            userAnswers = [];
+            levelSelection.style.display = 'block';
+            quizContent.style.display = 'none';
+            questionElement.style.display = 'block';
+            optionsElement.style.display = 'flex';
+            timerElement.style.display = 'block';
+            levelElement.style.display = 'block';
+            progressElement.textContent = '';
+            resultElement.style.display = 'none';
+            restartBtn.style.display = 'none';
+            achievementElement.style.display = 'none';
+            updateHighScores();
+        });
+
+        // Initial state: show level selection and load high scores
+        levelSelection.style.display = 'block';
+        quizContent.style.display = 'none';
+        updateHighScores();
+    </script>
+</body>
+</html>
